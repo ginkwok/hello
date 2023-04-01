@@ -1,5 +1,5 @@
 # 基础镜像
-FROM --platform=linux/amd64 golang:1.19
+FROM --platform=linux/amd64 golang:1.20
 
 # 设置工作目录
 WORKDIR /app

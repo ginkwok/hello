@@ -23,10 +23,10 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: golang-1.20
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm64]
+        platforms: [linux/amd64, linux/arm64]
     permissions:
       contents: read
       packages: write
@@ -51,7 +51,7 @@ jobs:
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
         with:
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64, linux/arm64
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -87,7 +87,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64, linux/arm64
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
